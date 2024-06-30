@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ-SA Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            height: 80vh;
+            border: 0.5px solid rgba(221, 221, 221, 0.86);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .question-section {
+            width: 60%;
+        }
+        .question-section h2 {
+            font-size: 18px;
+            color: #767676;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+        .options li {
+            margin-bottom: 10px;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 0.5px solid rgba(221, 221, 221, 0.86);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .answer {
+            display: flex;
+            align-items: center;
+            color: #22C55E;
+        }
+        .answer svg {
+            margin-right: 5px;
+        }
+        .sidebar {
+            width: 35%;
+        }
+        .sidebar-header {
+            display: flex;
+            height: 70vh;
+            flex-direction: column;
+            background-color: #FFEEDF;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+       
+        }
+
+        .level-selector {
+           
+            
+        }
+        .level-selector h3 {
+            margin: 0 0 10px;
+            color: #EE6F00;
+        }
+        .level-selector select {
+            padding: 10px;
+            border: 1px solid #DDDDDD;
+            border-radius: 4px;
+            width: 50vh;
+        }
+        .level-selector2{
+            margin-top: 70px;
+        }
+
+        .question-stats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 10px;
+            padding: 10px;
+            
+            
+        }
+        .question-header{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .question-stats div {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border-radius: 50%;
+            color: #EE6F00;
+            margin-right: 10px;
+        }
+        .question-stats div.selected {
+            background-color: #EE6F00;
+            color: white;
+        }
+        .question-stats div.visited::before {
+            content: "•";
+            color: #EE6F00;
+            font-size: 20px;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+        .timer {
+            display: flex;
+            align-items: center;
+            /* background-color: #ECFEF0; */
+            padding: 10px;
+            /* border: 0.5px solid rgba(221, 221, 221, 0.86); */
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .timer svg {
+            margin-right: 5px;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            justify-content: space-between;
+            grid-gap: 30px;
+            padding: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: white;
+        
+     }
+
+        .option-label {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #EEEEEE;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .option.selected .option-label {
+            background-color: #EE6F00;
+            color: #FFFFFF;
+        }
+
+        .option-text {
+            padding: 10px;
+            margin: 5px 0;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            flex-grow: 1;
+            border: #DDDDDD;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid rgba(210, 208, 208, 0.86);
+        }
+        .summary-option-header{
+            font-size: 15px;
+        }
+        .summary-option-text{
+            border: 1px solid rgba(210, 208, 208, 0.86);
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 15px;
+            background-color: white;
+            margin-right: 10px;
+            
+
+        }
+        .timer-option-text{
+            border: 1px solid rgba(210, 208, 208, 0.86);
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 15px;
+            background-color: white;
+            margin-right: 10px;
+        }
+        .timer-text{
+            font-size: 15px;
+        }
+        .time-question{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .no-of-questions{
+            margin-top: 15px;
+            margin-left: 13px;
+        }
+        .medium{
+            margin: 15px 190px;
+            width: 60px;
+            height: 20px;
+            background-color: #FFEEDF;
+            border-radius: 4px;
+            padding: 4px;
+            color: #EE6F00
+
+        }
+        .answered{
+            width: 75px;
+            height: 20px;
+            background-color: #ECFEF0;
+            border-radius: 4px;
+            padding: 6px;
+            color: #22C55E
+
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question-section">
+            <div class="question-header">
+            <h2>MCQ-SA</h2>
+            <span class="medium">Medium</span>
+            </div>
+            <div class="question">The area of the triangle formed by the points representing -z, iz and z-iz in the Argand plane is</div>
+            <div class="answered">Answered</div>
+            
+            <div class="option selected">
+                <span class="option-label">A</span>
+                <span class="option-text">1/2|z|²</span>
+            </div>
+            <div class="option">
+                <span class="option-label">B</span>
+                <span class="option-text">|z|</span>
+            </div>
+            <div class="option">
+                <span class="option-label">C</span>
+                <span class="option-text">3/2|z|²</span>
+            </div>
+            <div class="option">
+                <span class="option-label">D</span>
+                <span class="option-text">1/4|z|²</span>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-header">
+
+            <div class="level-selector">
+                <h3>Level</h3>
+                <select>
+                    <option>Level 1</option>
+                    <option selected>Level 2</option>
+                    <option>Level 3</option>
+                </select>
+            </div>
+            <div class="question-stats">
+                <div class="selected">1</div>
+                <div>2</div>
+                <div>3</div>
+                <div>4</div>
+                <div>5</div>
+                <div>6</div>
+                <div>7</div>
+                <div>8</div>
+                <div>9</div>
+                <div>10</div>
+            </div>
+            <div class="time-question">
+                <div class="timer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <mask id="mask0_6944_2174" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                            <rect width="24" height="24" fill="#D9D9D9"/>
+                        </mask>
+                        <g mask="url(#mask0_6944_2174)">
+                            <path d="M12.7491 12.6963V8.75012C12.7491 8.5373 12.6774 8.3591 12.5338 8.21552C12.3902 8.07193 12.212 8.00014 11.9992 8.00014C11.7864 8.00014 11.6081 8.07193 11.4646 8.21552C11.321 8.3591 11.2492 8.5373 11.2492 8.75012V12.9271C11.2492 13.0476 11.271 13.1623 11.3146 13.2713C11.3581 13.3803 11.4267 13.4815 11.5203 13.5751L14.4453 16.5001C14.5838 16.6386 14.7578 16.7094 14.9674 16.7126C15.1771 16.7158 15.3543 16.645 15.4992 16.5001C15.644 16.3553 15.7165 16.1796 15.7165 15.9732C15.7165 15.7668 15.644 15.5912 15.4992 15.4463L12.7491 12.6963ZM11.9992 21.5001C10.8197 21.5001 9.71456 21.277 8.68379 20.8309C7.65302 20.3847 6.75431 19.7783 5.98764 19.0117C5.22099 18.245 4.61459 17.3463 4.16844 16.3155C3.72227 15.2847 3.49919 14.1796 3.49919 13.0001C3.49919 11.8207 3.72227 10.7155 4.16844 9.68477C4.61459 8.654 5.22099 7.75528 5.98764 6.98862C6.75431 6.22197 7.65302 5.61557 8.68379 5.16942C9.71456 4.72325 10.8197 4.50017 11.9992 4.50017C13.1786 4.50017 14.2838 4.72325 15.3145 5.16942C16.3453 5.61557 17.244 6.22197 18.0107 6.98862C18.7773 7.75528 19.3837 8.654 19.8299 9.68477C20.2761 10.7155 20.4991 11.8207 20.4991 13.0001C20.4991 14.1796 20.2761 15.2847 19.8299 16.3155C19.3837 17.3463 18.7773 18.245 18.0107 19.0117C17.244 19.7783 16.3453 20.3847 15.3145 20.8309C14.2838 21.277 13.1786 21.5001 11.9992 21.5001ZM2.41457 7.28092C2.2697 7.13605 2.19727 6.96041 2.19727 6.75399C2.19727 6.54759 2.2697 6.37196 2.41457 6.22709L5.22612 3.41554C5.36457 3.27709 5.5386 3.20627 5.74822 3.20307C5.95783 3.19985 6.13507 3.27068 6.27994 3.41554C6.42481 3.56043 6.49724 3.73607 6.49724 3.94247C6.49724 4.14887 6.42481 4.3245 6.27994 4.46937L3.46839 7.28092C3.32994 7.41937 3.15591 7.4902 2.94629 7.49342C2.73669 7.49662 2.55945 7.42578 2.41457 7.28092ZM21.5838 7.28092C21.4389 7.42578 21.2632 7.49822 21.0568 7.49822C20.8504 7.49822 20.6748 7.42578 20.5299 7.28092L17.7184 4.46937C17.5799 4.33092 17.5091 4.15688 17.5059 3.94727C17.5027 3.73767 17.5735 3.56043 17.7184 3.41554C17.8633 3.27068 18.0389 3.19824 18.2453 3.19824C18.4517 3.19824 18.6273 3.27068 18.7722 3.41554L21.5838 6.22709C21.7222 6.36554 21.793 6.53957 21.7962 6.74919C21.7995 6.95881 21.7286 7.13605 21.5838 7.28092Z" fill="#1C1B1F"/>
+                        </g>
+                    </svg>
+                1:23 mins
+            </div>
+            <div class="no-of-questions">
+                <span class="timer-option-text">23</span>
+                <span class="timer-text">Total Questions</span>
+                </div>
+            </div>
+            <div class="summary">
+                <div class = "summary-header">
+                    <span class="summary-option-text">23</span>
+                    <span class="summary-option-header">Visited</span>
+                    
+                </div>
+                <div>
+                    <span class="summary-option-text">0</span>
+                    <span class="summary-option-header">Unvisited</span>
+                    
+                </div>
+                <div>
+                    <span class="summary-option-text">18</span>
+                    <span class="summary-option-header">Answered</span>
+                    
+                </div>
+                <div>
+                    <span class="summary-option-text">5</span>
+                    <span class="summary-option-header">Unanswered</span>
+                    
+                </div>
+                <div>
+                    <span class="summary-option-text">15</span>
+                    <span class="summary-option-header">Correct</span>
+                    
+                </div>
+                <div>
+                    <span class="summary-option-text">8</span>
+                    <span class="summary-option-header">Incorrect</span>
+                    
+                </div>
+                
+            </div>
+            <div class="level-selector">
+                <div class="level-selector2">
+                <select>
+                    <option selected>Level 3</option>
+                    <option >Level 4</option>
+                    <option>Level 5</option>
+                </select>
+                </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
